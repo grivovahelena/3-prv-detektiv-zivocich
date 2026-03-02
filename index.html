@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Detektiv Živočich</title>
+  <style>
+    :root {
+      --bg: #f0f9ff;
+      --ink: #1e293b;
+      --ink-light: #475569;
+      --primary: #22c55e;
+      --primary-dark: #16a34a;
+      --accent: #f59e0b;
+      --paper: #ffffff;
+      --border: #d1fae5;
+      --shadow: 0 8px 20px -4px rgba(34, 197, 94, 0.2);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', 'Comic Sans MS', cursive, sans-serif;
+      background-color: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .shell { display: flex; flex-direction: column; min-height: 100vh; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 4px solid var(--primary);
+      padding: 0.75rem 1rem;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo { display: flex; align-items: center; gap: 0.75rem; font-weight: 900; font-size: 1.5rem; color: var(--primary); }
+    .logo svg { width: 32px; height: 32px; fill: var(--primary); }
+
+    nav { display: flex; gap: 0.75rem; }
+
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    .card {
+      background: var(--paper);
+      border-radius: var(--radius);
+      border: 3px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    h1 { font-size: 2.5rem; font-weight: 900; margin: 0 0 1rem; color: var(--primary-dark); text-shadow: 1px 1px 0px white; }
+    h2 { font-size: 1.75rem; font-weight: 800; margin: 0 0 1.5rem; color: var(--ink); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 800;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      font-size: 1.1rem;
+      gap: 0.5rem;
+      box-shadow: 0 4px 0px rgba(0,0,0,0.1);
+      user-select: none;
+    }
+
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { transform: scale(1.05) rotate(-1deg); background: var(--primary-dark); }
+    
+    .btn-ghost { background: #f8fafc; color: var(--ink-light); border: 2px solid var(--border); }
+    .btn-ghost:hover { background: white; border-color: var(--primary); color: var(--primary); }
+    
+    .btn-active { background: var(--primary-dark); color: white; border-color: var(--primary-dark); }
+
+    .btn:active { transform: translateY(2px); box-shadow: none; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+    .home-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
+    @media (min-width: 768px) { .home-grid { grid-template-columns: 1.5fr 1fr; } }
+
+    .rule-box {
+      background: #f0fdf4;
+      border: 2px solid #bbf7d0;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      border-radius: 18px;
+      font-weight: 600;
+    }
+
+    .case-layout { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
+    @media (min-width: 950px) { .case-layout { grid-template-columns: 320px 1fr; } }
+
+    .clue-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .clue-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.7rem 1.1rem;
+      border-radius: 100px;
+      background: #f1f5f9;
+      color: #94a3b8;
+      font-weight: 800;
+      font-size: 0.9rem;
+      transition: all 0.4s;
+    }
+    .clue-item svg { width: 22px; height: 22px; fill: currentColor; }
+    
+    .clue-item.found#item-habitat { background: #dbeafe; color: #1e40af; }
+    .clue-item.found#item-movement { background: #fef9c3; color: #854d0e; }
+    .clue-item.found#item-breathing { background: #ffedd5; color: #9a3412; }
+    .clue-item.found#item-bodyCover { background: #f0fdf4; color: #166534; }
+
+    .display-clue {
+      background: white;
+      border: 4px solid var(--primary);
+      border-radius: 30px;
+      padding: 2rem 1.25rem;
+      text-align: center;
+      margin: 1.25rem 0;
+      box-shadow: 0 8px 0px var(--border);
+    }
+    .display-clue svg { width: 64px; height: 64px; fill: var(--primary); margin-bottom: 0.75rem; }
+    .display-clue .text { font-size: 1.4rem; font-weight: 900; color: var(--ink); }
+
+    .suspect-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+    .suspect-card {
+      background: #fff;
+      border: 3px solid #e2e8f0;
+      border-radius: 24px;
+      padding: 1.25rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .suspect-card:hover:not(.locked) { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    .suspect-card.locked { opacity: 0.15; pointer-events: none; filter: blur(2px); }
+    .suspect-card.active { border-color: var(--primary); background: #f0fdf4; border-width: 4px; }
+    .suspect-name { font-weight: 900; font-size: 1.15rem; color: var(--primary-dark); margin-bottom: 0.2rem; }
+    .suspect-group { font-size: 0.8rem; font-weight: 700; color: var(--ink-light); text-transform: uppercase; }
+
+    .lock-banner {
+      background: #fef2f2;
+      color: #b91c1c;
+      padding: 0.6rem 1rem;
+      border-radius: 15px;
+      border: 2px solid #fecaca;
+      text-align: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .lock-banner svg { width: 16px; height: 16px; fill: currentColor; }
+
+    .result-alert { padding: 1.75rem; border-radius: 24px; margin-top: 1.5rem; animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .result-success { background: #dcfce7; border: 4px solid var(--primary); color: #166534; }
+    .result-error { background: #fee2e2; border: 4px solid #ef4444; color: #991b1b; }
+
+    .animal-summary {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+      margin-top: 1.25rem;
+      background: rgba(255,255,255,0.6);
+      padding: 0.75rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .stat-card { background: #fff; border: 3px solid var(--border); padding: 0.75rem; border-radius: 20px; text-align: center; }
+    .stat-val { display: block; font-size: 2.2rem; font-weight: 900; color: var(--primary-dark); }
+
+    .badge-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+    .badge {
+      padding: 1.25rem 0.75rem;
+      border-radius: 24px;
+      background: #f1f5f9;
+      text-align: center;
+      opacity: 0.2;
+      transition: all 0.5s;
+    }
+    .badge.unlocked { opacity: 1; background: #fef9c3; border: 3px solid var(--accent); transform: scale(1.05); }
+    .badge-icon { font-size: 2.5rem; margin-bottom: 0.25rem; }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+    footer { padding: 2rem 1rem; text-align: center; font-weight: 700; color: var(--ink-light); font-size: 0.85rem; }
+
+    @keyframes pop { 0% { transform: scale(0.8); } 100% { transform: scale(1); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .svg-lib { display: none; }
+  </style>
+</head>
+<body>
+
+<svg class="svg-lib">
+  <symbol id="icon-habitat" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></symbol>
+  <symbol id="icon-movement" viewBox="0 0 24 24"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7.2 1.4z"/></symbol>
+  <symbol id="icon-breathing" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></symbol>
+  <symbol id="icon-body" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></symbol>
+  <symbol id="icon-lock" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></symbol>
+  <symbol id="icon-search" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></symbol>
+</svg>
+
+<div class="shell">
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <svg><use href="#icon-search"></use></svg>
+        <span>Detektiv Živočich</span>
+      </div>
+      <nav>
+        <button class="btn btn-ghost" onclick="app.showTab('home')">🏠 Domů</button>
+        <button class="btn btn-ghost" onclick="app.showTab('badges')">🏆 Atlas</button>
+        <button class="btn btn-ghost" onclick="app.showTab('settings')">⚙️</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="tab-home" class="tab-content active">
+      <div class="card" style="text-align: center;">
+        <h1>Vítej v badatelské kanceláři!</h1>
+        <p style="font-size: 1.2rem; font-weight: 600; color: var(--ink-light); margin-bottom: 2rem;">Staň se ochráncem přírody. Najdi všechny stopy a poznej zvířátka!</p>
+        
+        <div class="home-grid">
+          <div style="text-align: left;">
+            <div class="rule-box">🔍 Prozkoumej nejdříve všechny 4 stopy.</div>
+            <div class="rule-box">✅ Potom vyber správného živočicha.</div>
+            <div class="rule-box">🎁 Za každou výhru dostaneš 5 bodů a odznak!</div>
+          </div>
+
+          <div>
+            <div style="display: grid; gap: 0.5rem; margin-bottom: 1rem;">
+              <button class="btn btn-ghost grade-btn" data-grade="3">3. třída 🌿</button>
+              <button class="btn btn-ghost grade-btn" data-grade="4">4. třída 🌲</button>
+              <button class="btn btn-ghost grade-btn" data-grade="5">5. třída 🦁</button>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div class="stat-card"><span id="stat-total" class="stat-val">0</span><span style="font-size:0.8rem">Vyřešeno</span></div>
+              <div class="stat-card"><span id="stat-points" class="stat-val">0</span><span style="font-size:0.8rem">Bodů</span></div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="margin-top: 2rem; width: 100%; max-width: 500px; padding: 1.5rem; font-size: 1.4rem;" onclick="app.newCase()">
+          🚀 ZAČÍT PÁTRÁNÍ!
+        </button>
+      </div>
+    </section>
+
+    <section id="tab-case" class="tab-content">
+      <div class="case-layout">
+        <aside>
+          <div class="card" style="padding: 1.25rem;">
+            <h3 style="margin-top:0; font-size:1.1rem">Tvoje nálezy:</h3>
+            <div class="clue-list">
+              <div class="clue-item" id="item-habitat"><svg><use href="#icon-habitat"></use></svg> Prostředí</div>
+              <div class="clue-item" id="item-movement"><svg><use href="#icon-movement"></use></svg> Pohyb</div>
+              <div class="clue-item" id="item-breathing"><svg><use href="#icon-breathing"></use></svg> Dýchání</div>
+              <div class="clue-item" id="item-bodyCover"><svg><use href="#icon-body"></use></svg> Tělo</div>
+            </div>
+
+            <div class="display-clue" id="current-display">
+              <svg id="current-icon-svg"><use href="#icon-habitat"></use></svg>
+              <div class="text" id="current-text">Hledám indicie...</div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <button class="btn btn-primary" id="btn-next" onclick="app.nextClue()">Další stopa 🔎</button>
+              <button class="btn btn-ghost" id="btn-restart" onclick="app.newCase()" style="display:none">Nové pátrání 🔁</button>
+            </div>
+            
+            <div id="result-container"></div>
+          </div>
+        </aside>
+
+        <section>
+          <div class="card">
+            <div id="lock-msg" class="lock-banner">
+              <svg><use href="#icon-lock"></use></svg> Nejdřív odhal všechny stopy (4/4).
+            </div>
+            <h3 style="margin-top:0">Kdo je náš hledaný?</h3>
+            <div class="suspect-grid" id="suspects-list"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="tab-badges" class="tab-content">
+      <div class="card">
+        <h1>Tvůj Badatelský Atlas</h1>
+        <p>Tady se ukládají tvé trofeje!</p>
+        <div class="badge-grid" id="badge-container"></div>
+      </div>
+    </section>
+
+    <section id="tab-settings" class="tab-content">
+      <div class="card">
+        <h2>Nastavení</h2>
+        <button class="btn btn-ghost" onclick="app.resetGame()" style="color: #ef4444; border-color: #fecaca;">🗑️ Smazat historii</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>Mgr. Helena Gřivová</div>
+    <div style="margin-top: 0.3rem; opacity: 0.6; font-weight: normal;">Vzdělávací projekt pro 1. stupeň ZŠ</div>
+  </footer>
+</div>
+
+<script>
+const app = (() => {
+  const animals = [
+    { id: "lis", name: "Liška obecná", habitat: "v lese a na poli", movement: "běhá", breathing: "plícemi", bodyCover: "srstí", group: "savec", grade: [3,4,5] },
+    { id: "jezek", name: "Ježek západní", habitat: "v zahradách a lesích", movement: "leze", breathing: "plícemi", bodyCover: "ostny", group: "savec", grade: [3,4,5] },
+    { id: "zajic", name: "Zajíc polní", habitat: "na polích a loukách", movement: "rychle běhá", breathing: "plícemi", bodyCover: "srstí", group: "savec", grade: [3,4,5] },
+    { id: "veverka", name: "Veverka obecná", habitat: "v lesích a parcích", movement: "šplhá a skáče", breathing: "plícemi", bodyCover: "srstí", group: "savec", grade: [3,4,5] },
+    { id: "netopyr", name: "Netopýr", habitat: "v jeskyních a na půdách", movement: "létá", breathing: "plícemi", bodyCover: "srstí", group: "savec", grade: [4,5] },
+    { id: "delfin", name: "Delfín", habitat: "v mořích a oceánech", movement: "plave", breathing: "plícemi", bodyCover: "hladkou kůží", group: "savec", grade: [4,5] },
+    { id: "bobr", name: "Bobr evropský", habitat: "u řek a potoků", movement: "plave", breathing: "plícemi", bodyCover: "hustou srstí", group: "savec", grade: [4,5] },
+    { id: "sykora", name: "Sýkora koňadra", habitat: "v zahradách a lesích", movement: "létá", breathing: "plícemi", bodyCover: "peřím", group: "pták", grade: [3,4,5] },
+    { id: "kapr", name: "Kapr obecný", habitat: "v rybnících", movement: "plave", breathing: "žábrami", bodyCover: "šupinami", group: "ryba", grade: [3,4,5] },
+    { id: "zaba", name: "Skokan (žába)", habitat: "u vody", movement: "skáče", breathing: "plícemi i kůží", bodyCover: "vlhkou kůží", group: "obojživelník", grade: [4,5] },
+    { id: "mravenec", name: "Mravenec", habitat: "v mraveništi", movement: "leze", breathing: "vzdušnicemi", bodyCover: "vnější kostrou", group: "hmyz", grade: [3,4,5] },
+    { id: "motyl", name: "Babočka", habitat: "na loukách", movement: "létá", breathing: "vzdušnicemi", bodyCover: "vnější kostrou", group: "hmyz", grade: [3,4,5] },
+    { id: "rak", name: "Rak říční", habitat: "v potocích", movement: "leze po dně", breathing: "žábrami", bodyCover: "krunýřem", group: "korýš", grade: [4,5] }
+  ];
+
+  const cluesMeta = [
+    { key: 'habitat', icon: '#icon-habitat', prefix: 'Žije' },
+    { key: 'movement', icon: '#icon-movement', prefix: 'Tento živočich' },
+    { key: 'breathing', icon: '#icon-breathing', prefix: 'Dýchá' },
+    { key: 'bodyCover', icon: '#icon-body', prefix: 'Tělo má kryté' }
+  ];
+
+  // Použití nového klíče úložiště pro vyčištění chyb
+  const STORAGE_KEY = 'detektiv_heli_kids_vfinal_fix';
+
+  let state = { grade: 3, points: 0, solvedTotal: 0, currentCase: null, clueIndex: 0, isGameOver: false, lastId: null };
+
+  const load = () => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        // Pojištění, že data jsou čísla
+        state.points = Number(parsed.points) || 0;
+        state.solvedTotal = Number(parsed.solvedTotal) || 0;
+        state.grade = Number(parsed.grade) || 3;
+        state.lastId = parsed.lastId || null;
+      } catch(e) {
+        console.error("Chyba při načítání:", e);
+      }
+    }
+    updateStatsUI();
+    syncGradeButtons();
+  };
+
+  const save = () => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    updateStatsUI();
+  };
+
+  const showTab = (id) => {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    const t = document.getElementById(`tab-${id}`);
+    if(t) t.classList.add('active');
+  };
+
+  const syncGradeButtons = () => {
+    document.querySelectorAll('.grade-btn').forEach(btn => {
+      const g = parseInt(btn.dataset.grade);
+      btn.className = (g === state.grade) ? 'btn btn-active' : 'btn btn-ghost grade-btn';
+    });
+  };
+
+  const updateStatsUI = () => {
+    const sT = document.getElementById('stat-total');
+    const sP = document.getElementById('stat-points');
+    if(sT) sT.innerText = state.solvedTotal;
+    if(sP) sP.innerText = state.points;
+    renderBadges();
+  };
+
+  const newCase = () => {
+    const pool = animals.filter(a => a.grade.includes(state.grade));
+    let candidates = pool.filter(a => a.id !== state.lastId);
+    if (candidates.length === 0) candidates = pool;
+    const target = candidates[Math.floor(Math.random() * candidates.length)];
+    state.lastId = target.id;
+    let distractors = pool.filter(a => a.id !== target.id).sort(() => 0.5 - Math.random()).slice(0, 5);
+    state.currentCase = { target, suspects: [target, ...distractors].sort(() => 0.5 - Math.random()) };
+    state.clueIndex = 0;
+    state.isGameOver = false;
+
+    const res = document.getElementById('result-container');
+    const bR = document.getElementById('btn-restart');
+    const bN = document.getElementById('btn-next');
+    if(res) res.innerHTML = '';
+    if(bR) bR.style.display = 'none';
+    if(bN) bN.style.display = 'block';
+    
+    cluesMeta.forEach(m => {
+      const el = document.getElementById(`item-${m.key}`);
+      if(el) el.classList.remove('found');
+    });
+
+    renderClue();
+    renderSuspects(true);
+    showTab('case');
+  };
+
+  const renderClue = () => {
+    if (!state.currentCase) return;
+    const meta = cluesMeta[state.clueIndex];
+    const val = state.currentCase.target[meta.key];
+    const curIcon = document.getElementById('current-icon-svg');
+    const curText = document.getElementById('current-text');
+    const sideItem = document.getElementById(`item-${meta.key}`);
+
+    if(curIcon) curIcon.querySelector('use').setAttribute('href', meta.icon);
+    if(curText) curText.innerText = `${meta.prefix} ${val}.`;
+    if(sideItem) sideItem.classList.add('found');
+
+    const btnNext = document.getElementById('btn-next');
+    const lock = document.getElementById('lock-msg');
+
+    if (state.clueIndex >= 3) {
+      if(btnNext) {
+        btnNext.disabled = true;
+        btnNext.innerText = 'Stopy odhaleny! ✓';
+        btnNext.style.background = '#94a3b8';
+      }
+      if(lock) lock.style.display = 'none';
+      renderSuspects(false);
+    } else {
+      if(btnNext) {
+        btnNext.disabled = false;
+        btnNext.innerText = 'Hledat další stopu 🔎';
+        btnNext.style.background = '';
+      }
+      if(lock) lock.style.display = 'flex';
+      renderSuspects(true);
+    }
+  };
+
+  const nextClue = () => {
+    if (state.clueIndex < 3) {
+      state.clueIndex++;
+      renderClue();
+    }
+  };
+
+  const renderSuspects = (locked) => {
+    const list = document.getElementById('suspects-list');
+    if (!list) return;
+    list.innerHTML = '';
+    state.currentCase.suspects.forEach(s => {
+      const card = document.createElement('div');
+      card.className = `suspect-card ${locked ? 'locked' : ''}`;
+      card.innerHTML = `<div class="suspect-name">${s.name}</div><div class="suspect-group">${s.group}</div>`;
+      if (!locked) card.onclick = () => checkAnswer(s.id, card);
+      list.appendChild(card);
+    });
+  };
+
+  const checkAnswer = (id, el) => {
+    if (state.isGameOver) return;
+    state.isGameOver = true;
+    
+    document.querySelectorAll('.suspect-card').forEach(c => c.style.opacity = '0.3');
+    el.style.opacity = '1';
+    
+    const isCorrect = (id === state.currentCase.target.id);
+    const bN = document.getElementById('btn-next');
+    const bR = document.getElementById('btn-restart');
+    if(bN) bN.style.display = 'none';
+    if(bR) bR.style.display = 'block';
+
+    const container = document.getElementById('result-container');
+    if (isCorrect) {
+      // PŘIDÁVÁNÍ BODŮ - pojistka proti řetězcům
+      state.points = Number(state.points) + 5;
+      state.solvedTotal = Number(state.solvedTotal) + 1;
+      
+      el.classList.add('active');
+      const t = state.currentCase.target;
+      if(container) container.innerHTML = `
+        <div class="result-alert result-success">
+          <div style="font-size: 1.5rem; font-weight: 900;">🌟 SUPER! 🌟</div>
+          <p>Máme ho! Je to <b>${t.name}</b>.</p>
+          <div class="animal-summary">
+            <div>🐾 Třída: ${t.group}</div>
+            <div>📍 Život: ${t.habitat}</div>
+            <div>🏃 Pohyb: ${t.movement}</div>
+          </div>
+        </div>`;
+    } else {
+      if(container) container.innerHTML = `
+        <div class="result-alert result-error">
+          <div style="font-weight:900;">Skoro...</div>
+          <p>Hledali jsme <b>${state.currentCase.target.name}</b>.</p>
+        </div>`;
+    }
+    save(); // Uloží a aktualizuje statistiky na obrazovce
+  };
+
+  const renderBadges = () => {
+    const config = [
+      { name: 'Sazenička', req: 1, icon: '🌱' },
+      { name: 'Pátrač', req: 3, icon: '🔦' },
+      { name: 'Znalec', req: 5, icon: '📗' },
+      { name: 'Strážce', req: 10, icon: '🌲' },
+      { name: 'Král hor', req: 20, icon: '🦁' }
+    ];
+    const container = document.getElementById('badge-container');
+    if (!container) return;
+    container.innerHTML = '';
+    config.forEach(b => {
+      const ok = (state.solvedTotal >= b.req);
+      const div = document.createElement('div');
+      div.className = `badge ${ok ? 'unlocked' : ''}`;
+      div.innerHTML = `<div class="badge-icon">${b.icon}</div><div style="font-weight:900;">${b.name}</div><div style="font-size:0.75rem; opacity:0.8">${b.req}x ✅</div>`;
+      container.appendChild(div);
+    });
+  };
+
+  const resetGame = () => {
+    if (confirm('Opravdu smazat historii? Přijdeš o odznaky.')) {
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+    }
+  };
+
+  // Inicializace
+  window.onload = () => {
+    load();
+    document.querySelectorAll('.grade-btn').forEach(btn => {
+      btn.onclick = () => {
+        state.grade = parseInt(btn.dataset.grade);
+        syncGradeButtons();
+        save();
+      };
+    });
+  };
+
+  return { showTab, newCase, nextClue, resetGame };
+})();
+</script>
+</body>
+</html>
