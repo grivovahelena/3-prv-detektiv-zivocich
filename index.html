@@ -5,129 +5,172 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Detektiv Živočich</title>
   <style>
-    :root{
-      --bg:#f0f9ff; --ink:#1e293b; --ink2:#475569;
-      --primary:#22c55e; --primary2:#16a34a; --accent:#f59e0b;
-      --paper:#fff; --border:#d1fae5; --shadow:0 10px 24px -8px rgba(34,197,94,.25);
-      --radius:24px;
+    :root {
+      --bg: #f0f9ff;
+      --ink: #1e293b;
+      --ink2: #475569;
+      --primary: #22c55e;
+      --primary2: #16a34a;
+      --accent: #f59e0b;
+      --paper: #fff;
+      --border: #d1fae5;
+      --shadow: 0 10px 24px -8px rgba(34, 197, 94, .25);
+      --radius: 24px;
     }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Segoe UI,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
-    .shell{min-height:100vh;display:flex;flex-direction:column}
-    header{
-      position:sticky;top:0;z-index:10;background:rgba(255,255,255,.95);
-      border-bottom:4px solid var(--primary);padding:.75rem 1rem;backdrop-filter:blur(8px);
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
     }
-    .header-content{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-    .logo{display:flex;align-items:center;gap:.6rem;font-weight:900;color:var(--primary);font-size:1.3rem}
-    nav{display:flex;gap:.6rem;flex-wrap:wrap}
-    main{flex:1;max-width:1100px;margin:0 auto;width:100%;padding:1.25rem}
-    footer{padding:2rem 1rem;text-align:center;color:var(--ink2);font-weight:700;font-size:.9rem}
+    .shell { min-height: 100vh; display: flex; flex-direction: column; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, .95);
+      border-bottom: 4px solid var(--primary);
+      padding: .75rem 1rem;
+      backdrop-filter: blur(8px);
+    }
+    .header-content { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .logo { display: flex; align-items: center; gap: .6rem; font-weight: 900; color: var(--primary); font-size: 1.3rem; }
+    nav { display: flex; gap: .6rem; flex-wrap: wrap; }
+    main { flex: 1; max-width: 1100px; margin: 0 auto; width: 100%; padding: 1.25rem; }
+    footer { padding: 2rem 1rem; text-align: center; color: var(--ink2); font-weight: 700; font-size: .9rem; }
 
-    .card{
-      background:var(--paper);border-radius:var(--radius);border:3px solid var(--border);
-      box-shadow:var(--shadow);padding:1.75rem;margin-bottom:1.25rem
+    .card {
+      background: var(--paper);
+      border-radius: var(--radius);
+      border: 3px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 1.75rem;
+      margin-bottom: 1.25rem;
     }
-    h1{margin:0 0 .75rem;font-size:2.2rem;color:var(--primary2);font-weight:900}
-    h2{margin:0 0 1rem;font-size:1.6rem;font-weight:900}
-    h3{margin:0 0 .75rem;font-size:1.1rem;font-weight:900}
+    h1 { margin: 0 0 .75rem; font-size: 2.2rem; color: var(--primary2); font-weight: 900; }
+    h2 { margin: 0 0 1rem; font-size: 1.6rem; font-weight: 900; }
+    h3 { margin: 0 0 .75rem; font-size: 1.1rem; font-weight: 900; }
 
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-      padding:.9rem 1.2rem;border-radius:999px;border:2px solid transparent;
-      cursor:pointer;font-weight:900;transition:.2s ease;user-select:none
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: .9rem 1.2rem;
+      border-radius: 999px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      font-weight: 900;
+      transition: .2s ease;
+      user-select: none;
+      text-decoration: none;
     }
-    .btn:active{transform:translateY(1px)}
-    .btn:disabled{opacity:.45;cursor:not-allowed}
-    .btn-primary{background:var(--primary);color:#fff;box-shadow:0 6px 0 rgba(0,0,0,.08)}
-    .btn-primary:hover{background:var(--primary2)}
-    .btn-ghost{background:#f8fafc;color:var(--ink2);border-color:var(--border)}
-    .btn-ghost:hover{border-color:var(--primary);color:var(--primary)}
-    .btn-active{background:var(--primary2);color:#fff;border-color:var(--primary2)}
+    .btn:active { transform: translateY(1px); }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 6px 0 rgba(0, 0, 0, .08); }
+    .btn-primary:hover { background: var(--primary2); }
+    .btn-ghost { background: #f8fafc; color: var(--ink2); border-color: var(--border); }
+    .btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-active { background: var(--primary2); color: #fff; border-color: var(--primary2); }
 
-    .tabs{display:none}
-    .tabs.active{display:block}
+    .tabs { display: none; }
+    .tabs.active { display: block; }
 
-    .home-grid{display:grid;gap:1rem;grid-template-columns:1fr}
-    @media (min-width:850px){.home-grid{grid-template-columns:1.4fr 1fr}}
-    .rule{background:#f0fdf4;border:2px solid #bbf7d0;border-radius:18px;padding:1rem;font-weight:800}
-    .stats{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-    .stat{background:#fff;border:3px solid var(--border);border-radius:20px;padding:.75rem;text-align:center}
-    .stat b{display:block;font-size:2rem;color:var(--primary2)}
+    .home-grid { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+    @media (min-width: 850px) { .home-grid { grid-template-columns: 1.4fr 1fr; } }
+    .rule { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 18px; padding: 1rem; font-weight: 800; margin-bottom: 0.6rem; }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .stat { background: #fff; border: 3px solid var(--border); border-radius: 20px; padding: .75rem; text-align: center; }
+    .stat b { display: block; font-size: 2rem; color: var(--primary2); }
 
-    .case-layout{display:grid;gap:1rem;grid-template-columns:1fr}
-    @media (min-width:950px){.case-layout{grid-template-columns:340px 1fr}}
+    .case-layout { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+    @media (min-width: 950px) { .case-layout { grid-template-columns: 340px 1fr; } }
 
-    .clues{display:flex;flex-direction:column;gap:.6rem}
-    .clue{
-      padding:.7rem 1rem;border-radius:999px;background:#f1f5f9;color:#64748b;font-weight:900;font-size:.92rem;
-      display:flex;justify-content:space-between;align-items:center;border:2px solid transparent
+    .clues { display: flex; flex-direction: column; gap: .6rem; }
+    .clue {
+      padding: .7rem 1rem;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #64748b;
+      font-weight: 900;
+      font-size: .92rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 2px solid transparent;
     }
-    .clue.found{background:#dcfce7;color:#166534;border-color:#bbf7d0}
-    .clue .chip{
-      min-width:44px;text-align:center;padding:.2rem .55rem;border-radius:999px;
-      background:rgba(255,255,255,.7);border:2px solid rgba(0,0,0,.04);font-weight:900
+    .clue.found { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+    .clue .chip {
+      min-width: 44px;
+      text-align: center;
+      padding: .2rem .55rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .7);
+      border: 2px solid rgba(0, 0, 0, .04);
+      font-weight: 900;
     }
-    .progress{
-      margin-top:.9rem;
-      background:#ecfeff;border:2px solid #cffafe;border-radius:16px;
-      padding:.7rem .9rem;font-weight:900;color:#0f766e
-    }
-
-    .display{
-      margin:1rem 0;background:#fff;border:4px solid var(--primary);border-radius:26px;padding:1.25rem;text-align:center;
-      box-shadow:0 10px 0 var(--border)
-    }
-    .display .text{font-size:1.25rem;font-weight:900}
-
-    .lock{
-      background:#fef2f2;color:#b91c1c;border:2px solid #fecaca;border-radius:14px;padding:.6rem .8rem;
-      font-weight:900;font-size:.9rem;margin-bottom:.8rem;text-align:center
-    }
-
-    /* podezřelí */
-    .suspects{display:grid;gap:.85rem;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
-    .suspect{
-      position:relative;
-      text-align:center;background:#fff;border:3px solid #e2e8f0;border-radius:22px;padding:1rem;
-      transition:.2s ease;min-height:112px
-    }
-    .suspect:hover:not([disabled]){border-color:var(--primary);transform:translateY(-3px);box-shadow:0 12px 20px rgba(0,0,0,.08)}
-    /* žádná mlha: text zůstává čitelný */
-    .suspect[disabled]{opacity:.72}
-    .suspect[disabled] .name{opacity:1}
-    .suspect[disabled]::after{
-      content:"🔒 Nejdřív odhal 4 stopy";
-      position:absolute;left:10px;right:10px;bottom:10px;
-      font-size:.78rem;font-weight:900;color:#b91c1c;
-      background:rgba(254,242,242,.92);border:2px solid #fecaca;border-radius:999px;
-      padding:.28rem .5rem
-    }
-
-    /* vycentrované názvy + lepší typografie */
-    .suspect .name{
-      font-weight:1000;
-      color:var(--primary2);
-      font-size:1.08rem;
-      line-height:1.15;
-      text-align:center;
-      margin:0 auto .2rem;
-      max-width:18ch;
-    }
-    .suspect .group{
-      font-weight:900;color:var(--ink2);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em
+    .progress {
+      margin-top: .9rem;
+      background: #ecfeff;
+      border: 2px solid #cffafe;
+      border-radius: 16px;
+      padding: .7rem .9rem;
+      font-weight: 900;
+      color: #0f766e;
     }
 
-    .result{margin-top:1rem;border-radius:22px;padding:1.25rem;font-weight:900}
-    .ok{background:#dcfce7;border:4px solid var(--primary);color:#166534}
-    .bad{background:#fee2e2;border:4px solid #ef4444;color:#991b1b}
+    .display {
+      margin: 1rem 0;
+      background: #fff;
+      border: 4px solid var(--primary);
+      border-radius: 26px;
+      padding: 1.25rem;
+      text-align: center;
+      box-shadow: 0 10px 0 var(--border);
+    }
+    .display .text { font-size: 1.25rem; font-weight: 900; }
 
-    .badges{display:grid;gap:.75rem;grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
-    .badge{background:#f1f5f9;border-radius:22px;padding:1rem;text-align:center;opacity:.25}
-    .badge.unlocked{opacity:1;background:#fef9c3;border:3px solid var(--accent)}
-    .badge .icon{font-size:2.2rem}
+    .lock {
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 2px solid #fecaca;
+      border-radius: 14px;
+      padding: .6rem .8rem;
+      font-weight: 900;
+      font-size: .9rem;
+      margin-bottom: .8rem;
+      text-align: center;
+    }
 
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .suspects { display: grid; gap: .85rem; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+    .suspect {
+      position: relative;
+      text-align: center;
+      background: #fff;
+      border: 3px solid #e2e8f0;
+      border-radius: 22px;
+      padding: 1rem;
+      transition: .2s ease;
+      min-height: 112px;
+      width: 100%;
+    }
+    .suspect:hover:not(:disabled) { border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 12px 20px rgba(0, 0, 0, .08); }
+    .suspect:disabled { opacity: 0.72; cursor: not-allowed; }
+    .suspect .name { font-weight: 900; color: var(--primary2); font-size: 1.08rem; line-height: 1.15; text-align: center; margin: 0 auto .2rem; }
+    .suspect .group { font-weight: 900; color: var(--ink2); font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
+
+    .result { margin-top: 1rem; border-radius: 22px; padding: 1.25rem; font-weight: 900; }
+    .ok { background: #dcfce7; border: 4px solid var(--primary); color: #166534; }
+    .bad { background: #fee2e2; border: 4px solid #ef4444; color: #991b1b; }
+
+    .badges { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+    .badge { background: #f1f5f9; border-radius: 22px; padding: 1rem; text-align: center; opacity: .25; border: 3px solid transparent; }
+    .badge.unlocked { opacity: 1; background: #fef9c3; border: 3px solid var(--accent); }
+    .badge .icon { font-size: 2.2rem; }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
   </style>
 </head>
 <body>
@@ -155,8 +198,8 @@
         <div class="home-grid">
           <div style="text-align:left">
             <div class="rule">🔍 Prozkoumej nejdříve všechny 4 stopy.</div>
-            <div class="rule" style="margin-top:.6rem">✅ Potom vyber správného živočicha.</div>
-            <div class="rule" style="margin-top:.6rem">🎁 Za každou výhru dostaneš 5 bodů a odznak!</div>
+            <div class="rule">✅ Potom vyber správného živočicha.</div>
+            <div class="rule">🎁 Za každou výhru dostaneš 5 bodů a odznak!</div>
           </div>
 
           <div>
@@ -194,7 +237,7 @@
 
             <div class="progress" id="progress">Stopy: 0 / 4</div>
 
-            <div class="display" aria-live="polite">
+            <div class="display">
               <div class="sr-only" id="sr-status"></div>
               <div class="text" id="clue-text">Klikni na „Další stopa“.</div>
             </div>
@@ -204,7 +247,7 @@
               <button id="btn-new" class="btn btn-ghost" style="display:none">Nové pátrání 🔁</button>
             </div>
 
-            <div id="result"></div>
+            <div id="result-container"></div>
           </div>
         </aside>
 
@@ -212,7 +255,7 @@
           <div class="card">
             <div id="lock" class="lock">Nejdřív odhal všechny stopy (4/4).</div>
             <h3>Kdo je náš hledaný?</h3>
-            <div id="suspects" class="suspects"></div>
+            <div id="suspects-grid" class="suspects"></div>
           </div>
         </section>
       </div>
@@ -224,7 +267,7 @@
         <p style="margin-top:0;color:var(--ink2);font-weight:800">
           Odznaky se odemykají podle počtu vyřešených případů.
         </p>
-        <div id="badges" class="badges"></div>
+        <div id="badges-grid" class="badges"></div>
       </div>
     </section>
 
@@ -245,48 +288,29 @@
 <script>
 (() => {
   const animals = [
-    { id:"lis", name:"Liška obecná", habitat:"v lese a na poli", movement:"běhá", breathing:"plícemi", bodyCover:"srstí", group:"savec", grade:[3,4,5] },
-    { id:"jezek", name:"Ježek západní", habitat:"v zahradách a lesích", movement:"leze", breathing:"plícemi", bodyCover:"ostny", group:"savec", grade:[3,4,5] },
-    { id:"zajic", name:"Zajíc polní", habitat:"na polích a loukách", movement:"rychle běhá", breathing:"plícemi", bodyCover:"srstí", group:"savec", grade:[3,4,5] },
-    { id:"veverka", name:"Veverka obecná", habitat:"v lesích a parcích", movement:"šplhá a skáče", breathing:"plícemi", bodyCover:"srstí", group:"savec", grade:[3,4,5] },
-    { id:"netopyr", name:"Netopýr", habitat:"v jeskyních a na půdách", movement:"létá", breathing:"plícemi", bodyCover:"srstí", group:"savec", grade:[4,5] },
-    { id:"delfin", name:"Delfín", habitat:"v mořích a oceánech", movement:"plave", breathing:"plícemi", bodyCover:"hladkou kůží", group:"savec", grade:[4,5] },
-    { id:"bobr", name:"Bobr evropský", habitat:"u řek a potoků", movement:"plave", breathing:"plícemi", bodyCover:"hustou srstí", group:"savec", grade:[4,5] },
-    { id:"sykora", name:"Sýkora koňadra", habitat:"v zahradách a lesích", movement:"létá", breathing:"plícemi", bodyCover:"peřím", group:"pták", grade:[3,4,5] },
-    { id:"kapr", name:"Kapr obecný", habitat:"v rybnících", movement:"plave", breathing:"žábrami", bodyCover:"šupinami", group:"ryba", grade:[3,4,5] },
-    { id:"zaba", name:"Skokan (žába)", habitat:"u vody", movement:"skáče", breathing:"plícemi i kůží", bodyCover:"vlhkou kůží", group:"obojživelník", grade:[4,5] },
-    { id:"mravenec", name:"Mravenec", habitat:"v mraveništi", movement:"leze", breathing:"vzdušnicemi", bodyCover:"vnější kostrou", group:"hmyz", grade:[3,4,5] },
-    { id:"motyl", name:"Babočka", habitat:"na loukách", movement:"létá", breathing:"vzdušnicemi", bodyCover:"vnější kostrou", group:"hmyz", grade:[3,4,5] },
-    { id:"rak", name:"Rak říční", habitat:"v potocích", movement:"leze po dně", breathing:"žábrami", bodyCover:"krunýřem", group:"korýš", grade:[4,5] },
+    { id: "lis", name: "Liška obecná", habitat: "v lese a na poli", movement: "běhá", breathing: "plícemi", bodyCover: "srstí", group: "savec", grade: [3, 4, 5] },
+    { id: "jezek", name: "Ježek západní", habitat: "v zahradách a lesích", movement: "leze", breathing: "plícemi", bodyCover: "ostny", group: "savec", grade: [3, 4, 5] },
+    { id: "zajic", name: "Zajíc polní", habitat: "na polích a loukách", movement: "rychle běhá", breathing: "plícemi", bodyCover: "srstí", group: "savec", grade: [3, 4, 5] },
+    { id: "veverka", name: "Veverka obecná", habitat: "v lesích a parcích", movement: "šplhá a skáče", breathing: "plícemi", bodyCover: "srstí", group: "savec", grade: [3, 4, 5] },
+    { id: "netopyr", name: "Netopýr", habitat: "v jeskyních a na půdách", movement: "létá", breathing: "plícemi", bodyCover: "srstí", group: "savec", grade: [4, 5] },
+    { id: "delfin", name: "Delfín", habitat: "v mořích a oceánech", movement: "plave", breathing: "plícemi", bodyCover: "hladkou kůží", group: "savec", grade: [4, 5] },
+    { id: "bobr", name: "Bobr evropský", habitat: "u řek a potoků", movement: "plave", breathing: "plícemi", bodyCover: "hustou srstí", group: "savec", grade: [4, 5] },
+    { id: "sykora", name: "Sýkora koňadra", habitat: "v zahradách a lesích", movement: "létá", breathing: "plícemi", bodyCover: "peřím", group: "pták", grade: [3, 4, 5] },
+    { id: "kapr", name: "Kapr obecný", habitat: "v rybnících", movement: "plave", breathing: "žábrami", bodyCover: "šupinami", group: "ryba", grade: [3, 4, 5] },
+    { id: "zaba", name: "Skokan (žába)", habitat: "u vody", movement: "skáče", breathing: "plícemi i kůží", bodyCover: "vlhkou kůží", group: "obojživelník", grade: [4, 5] },
+    { id: "mravenec", name: "Mravenec", habitat: "v mraveništi", movement: "leze", breathing: "vzdušnicemi", bodyCover: "vnější kostrou", group: "hmyz", grade: [3, 4, 5] },
+    { id: "motyl", name: "Babočka", habitat: "na loukách", movement: "létá", breathing: "vzdušnicemi", bodyCover: "vnější kostrou", group: "hmyz", grade: [3, 4, 5] },
+    { id: "rak", name: "Rak říční", habitat: "v potocích", movement: "leze po dně", breathing: "žábrami", bodyCover: "krunýřem", group: "korýš", grade: [4, 5] },
   ];
 
-  const clues = [
-    { key:"habitat", prefix:"Žije" },
-    { key:"movement", prefix:"Tento živočich" },
-    { key:"breathing", prefix:"Dýchá" },
-    { key:"bodyCover", prefix:"Tělo má kryté" },
+  const clueMeta = [
+    { key: "habitat", prefix: "Žije" },
+    { key: "movement", prefix: "Tento živočich" },
+    { key: "breathing", prefix: "Dýchá" },
+    { key: "bodyCover", prefix: "Tělo má kryté" },
   ];
 
-  const STORAGE_KEY = "detektiv_zivocich_simple_v2";
-
-  const el = {
-    tabs: () => document.querySelectorAll(".tabs"),
-    nav: () => document.querySelectorAll("nav [data-tab]"),
-    grades: () => document.querySelectorAll(".grade"),
-    statSolved: document.getElementById("stat-solved"),
-    statPoints: document.getElementById("stat-points"),
-    btnStart: document.getElementById("btn-start"),
-    btnNext: document.getElementById("btn-next"),
-    btnNew: document.getElementById("btn-new"),
-    btnReset: document.getElementById("btn-reset"),
-    clueText: document.getElementById("clue-text"),
-    srStatus: document.getElementById("sr-status"),
-    progress: document.getElementById("progress"),
-    lock: document.getElementById("lock"),
-    suspects: document.getElementById("suspects"),
-    result: document.getElementById("result"),
-    badges: document.getElementById("badges"),
-  };
+  const STORAGE_KEY = "detektiv_zivocich_v2_fixed";
 
   const state = {
     grade: 3,
@@ -294,13 +318,15 @@
     solvedTotal: 0,
     lastId: null,
     current: null,
-    clueIndex: 0,     // 0..3 (renderuje se aktuální)
-    revealed: 0,      // 0..4 (počítadlo)
+    clueIndex: 0,
+    revealed: 0,
     isOver: false,
   };
 
+  let UI = {};
+
   const shuffle = (arr) => {
-    const a = arr.slice();
+    const a = [...arr];
     for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [a[i], a[j]] = [a[j], a[i]];
@@ -317,7 +343,7 @@
       state.points = Number(p.points) || 0;
       state.solvedTotal = Number(p.solvedTotal) || 0;
       state.lastId = p.lastId || null;
-    } catch {}
+    } catch (e) {}
   };
 
   const persistSave = () => {
@@ -326,42 +352,47 @@
   };
 
   const showTab = (id) => {
-    el.tabs().forEach(t => t.classList.remove("active"));
-    const t = document.getElementById(`tab-${id}`);
-    if (t) t.classList.add("active");
+    UI.tabs.forEach(t => t.classList.remove("active"));
+    const target = document.getElementById(`tab-${id}`);
+    if (target) target.classList.add("active");
   };
 
   const syncGrades = () => {
-    el.grades().forEach(btn => {
+    UI.gradeBtns.forEach(btn => {
       const g = parseInt(btn.dataset.grade, 10);
       btn.className = (g === state.grade) ? "btn btn-active grade" : "btn btn-ghost grade";
     });
   };
 
   const updateStats = () => {
-    el.statSolved.textContent = String(state.solvedTotal);
-    el.statPoints.textContent = String(state.points);
+    UI.statSolved.textContent = state.solvedTotal;
+    UI.statPoints.textContent = state.points;
     renderBadges();
   };
 
-  const setClueFoundUI = (key, found) => {
-    const row = document.getElementById(`clue-${key}`);
-    if (!row) return;
-    row.classList.toggle("found", found);
-    const chip = row.querySelector(".chip");
-    if (chip) chip.textContent = found ? "✅" : "⏳";
-  };
-
   const updateProgress = () => {
-    el.progress.textContent = `Stopy: ${state.revealed} / 4`;
+    UI.progress.textContent = `Stopy: ${state.revealed} / 4`;
   };
 
-  const resetCluesUI = () => {
-    clues.forEach(c => setClueFoundUI(c.key, false));
-    state.revealed = 0;
-    updateProgress();
-    el.clueText.textContent = "Klikni na „Další stopa“.";
-    el.srStatus.textContent = "";
+  const renderBadges = () => {
+    const cfg = [
+      { name: "Sazenička", req: 1, icon: "🌱" },
+      { name: "Pátrač", req: 3, icon: "🔦" },
+      { name: "Znalec", req: 5, icon: "📗" },
+      { name: "Strážce", req: 10, icon: "🌲" },
+      { name: "Král hor", req: 20, icon: "🦁" },
+    ];
+    UI.badgesGrid.innerHTML = "";
+    cfg.forEach(b => {
+      const div = document.createElement("div");
+      div.className = `badge ${state.solvedTotal >= b.req ? "unlocked" : ""}`;
+      div.innerHTML = `
+        <div class="icon">${b.icon}</div>
+        <div style="font-weight:900">${b.name}</div>
+        <div style="font-size:.75rem;font-weight:900;opacity:.85">${b.req}× ✅</div>
+      `;
+      UI.badgesGrid.appendChild(div);
+    });
   };
 
   const startCase = () => {
@@ -376,138 +407,88 @@
     state.current = { target, suspects: shuffle([target, ...distractors]) };
 
     state.clueIndex = 0;
+    state.revealed = 0;
     state.isOver = false;
 
-    el.result.replaceChildren();
-    el.btnNew.style.display = "none";
-    el.btnNext.style.display = "inline-flex";
-    el.btnNext.disabled = false;
-    el.btnNext.textContent = "Další stopa 🔎";
+    UI.resultContainer.innerHTML = "";
+    UI.btnNew.style.display = "none";
+    UI.btnNext.style.display = "inline-flex";
+    UI.btnNext.disabled = false;
+    UI.btnNext.textContent = "Další stopa 🔎";
+    UI.lock.style.display = "block";
+    UI.clueText.textContent = "Klikni na „Další stopa“.";
+    
+    clueMeta.forEach(c => {
+      const row = document.getElementById(`clue-${c.key}`);
+      if (row) {
+        row.classList.remove("found");
+        row.querySelector(".chip").textContent = "⏳";
+      }
+    });
 
-    el.lock.style.display = "block";
-
-    resetCluesUI();
+    updateProgress();
     renderSuspects(true);
     showTab("case");
     persistSave();
   };
 
-  const renderCurrentClue = () => {
-    if (!state.current) return;
-    const meta = clues[state.clueIndex];
+  const nextClue = () => {
+    if (!state.current || state.revealed >= 4) return;
+
+    const meta = clueMeta[state.clueIndex];
     const val = state.current.target[meta.key];
 
-    el.clueText.textContent = `${meta.prefix} ${val}.`;
-    el.srStatus.textContent = `Stopa: ${meta.prefix} ${val}.`;
+    UI.clueText.textContent = `${meta.prefix} ${val}.`;
+    UI.srStatus.textContent = `Stopa: ${meta.prefix} ${val}.`;
 
-    setClueFoundUI(meta.key, true);
+    const row = document.getElementById(`clue-${meta.key}`);
+    if (row) {
+      row.classList.add("found");
+      row.querySelector(".chip").textContent = "✅";
+    }
 
-    // Progress: počítáme jen když se opravdu odhalila nová stopa
-    state.revealed = Math.min(4, state.revealed + 1);
+    state.revealed++;
     updateProgress();
 
-    const unlocked = (state.revealed >= 4);
-    if (unlocked) {
-      el.btnNext.disabled = true;
-      el.btnNext.textContent = "Stopy odhaleny! ✓";
-      el.lock.style.display = "none";
+    if (state.revealed >= 4) {
+      UI.btnNext.disabled = true;
+      UI.btnNext.textContent = "Stopy odhaleny! ✓";
+      UI.lock.style.display = "none";
       renderSuspects(false);
     } else {
-      renderSuspects(true);
+      state.clueIndex++;
     }
   };
 
-  const nextClue = () => {
-    if (!state.current) return;
-    if (state.revealed >= 4) return;
-
-    renderCurrentClue();
-
-    // posuň index na další stopu (max 3)
-    if (state.clueIndex < clues.length - 1) state.clueIndex++;
-  };
-
   const renderSuspects = (locked) => {
-    el.suspects.replaceChildren();
+    UI.suspectsGrid.innerHTML = "";
     if (!state.current) return;
 
     state.current.suspects.forEach(s => {
       const btn = document.createElement("button");
-      btn.type = "button";
       btn.className = "suspect";
       btn.disabled = locked;
-      btn.setAttribute("aria-disabled", locked ? "true" : "false");
-
-      const name = document.createElement("div");
-      name.className = "name";
-      name.textContent = s.name;
-
-      const group = document.createElement("div");
-      group.className = "group";
-      group.textContent = s.group;
-
-      btn.append(name, group);
-
-      if (!locked) btn.addEventListener("click", () => checkAnswer(s.id, btn));
-      el.suspects.appendChild(btn);
+      btn.innerHTML = `
+        <div class="name">${s.name}</div>
+        <div class="group">${s.group}</div>
+      `;
+      if (!locked) {
+        btn.addEventListener("click", () => checkAnswer(s.id, btn));
+      }
+      UI.suspectsGrid.appendChild(btn);
     });
-  };
-
-  const showResult = (ok) => {
-    el.result.replaceChildren();
-    const box = document.createElement("div");
-    box.className = `result ${ok ? "ok" : "bad"}`;
-
-    if (ok) {
-      const t = state.current.target;
-
-      const title = document.createElement("div");
-      title.style.fontSize = "1.35rem";
-      title.style.fontWeight = "900";
-      title.textContent = "🌟 SUPER! 🌟";
-
-      const p = document.createElement("p");
-      p.style.margin = ".5rem 0 0";
-      p.append("Máme ho! Je to ");
-      const b = document.createElement("b");
-      b.textContent = t.name;
-      p.append(b, ".");
-
-      const small = document.createElement("div");
-      small.style.marginTop = ".6rem";
-      small.style.fontWeight = "900";
-      small.textContent = `🐾 ${t.group} • 📍 ${t.habitat} • 🏃 ${t.movement}`;
-
-      box.append(title, p, small);
-    } else {
-      const title = document.createElement("div");
-      title.style.fontWeight = "900";
-      title.textContent = "Skoro…";
-
-      const p = document.createElement("p");
-      p.style.margin = ".5rem 0 0";
-      p.append("Hledali jsme ");
-      const b = document.createElement("b");
-      b.textContent = state.current.target.name;
-      p.append(b, ".");
-
-      box.append(title, p);
-    }
-
-    el.result.appendChild(box);
   };
 
   const checkAnswer = (id, btnEl) => {
     if (!state.current || state.isOver) return;
     state.isOver = true;
 
-    [...el.suspects.children].forEach(node => node.style.opacity = "0.45");
+    Array.from(UI.suspectsGrid.children).forEach(node => node.style.opacity = "0.4");
     btnEl.style.opacity = "1";
 
     const ok = (id === state.current.target.id);
-
-    el.btnNext.style.display = "none";
-    el.btnNew.style.display = "inline-flex";
+    UI.btnNext.style.display = "none";
+    UI.btnNew.style.display = "inline-flex";
 
     if (ok) {
       state.points += 5;
@@ -515,67 +496,65 @@
       updateStats();
       persistSave();
     }
-    showResult(ok);
-  };
 
-  const renderBadges = () => {
-    const cfg = [
-      { name:"Sazenička", req:1, icon:"🌱" },
-      { name:"Pátrač", req:3, icon:"🔦" },
-      { name:"Znalec", req:5, icon:"📗" },
-      { name:"Strážce", req:10, icon:"🌲" },
-      { name:"Král hor", req:20, icon:"🦁" },
-    ];
-    el.badges.replaceChildren();
-    cfg.forEach(b => {
-      const div = document.createElement("div");
-      div.className = `badge ${state.solvedTotal >= b.req ? "unlocked" : ""}`;
-
-      const icon = document.createElement("div");
-      icon.className = "icon";
-      icon.textContent = b.icon;
-
-      const name = document.createElement("div");
-      name.style.fontWeight = "900";
-      name.textContent = b.name;
-
-      const req = document.createElement("div");
-      req.style.fontSize = ".75rem";
-      req.style.fontWeight = "900";
-      req.style.opacity = ".85";
-      req.textContent = `${b.req}× ✅`;
-
-      div.append(icon, name, req);
-      el.badges.appendChild(div);
-    });
-  };
-
-  const resetGame = () => {
-    if (confirm("Opravdu smazat historii? Přijdeš o odznaky.")) {
-      localStorage.removeItem(STORAGE_KEY);
-      location.reload();
+    const box = document.createElement("div");
+    box.className = `result ${ok ? "ok" : "bad"}`;
+    if (ok) {
+      box.innerHTML = `
+        <div style="font-size:1.35rem;font-weight:900">🌟 SUPER! 🌟</div>
+        <p style="margin:.5rem 0 0">Máme ho! Je to <b>${state.current.target.name}</b>.</p>
+        <div style="margin-top:.6rem;font-size:.9rem">🐾 ${state.current.target.group} • 📍 ${state.current.target.habitat}</div>
+      `;
+    } else {
+      box.innerHTML = `
+        <div style="font-weight:900">Skoro…</div>
+        <p style="margin:.5rem 0 0">Hledali jsme <b>${state.current.target.name}</b>.</p>
+      `;
     }
+    UI.resultContainer.appendChild(box);
   };
 
-  // init
   document.addEventListener("DOMContentLoaded", () => {
+    UI = {
+      tabs: document.querySelectorAll(".tabs"),
+      navBtns: document.querySelectorAll("nav [data-tab]"),
+      gradeBtns: document.querySelectorAll(".grade"),
+      statSolved: document.getElementById("stat-solved"),
+      statPoints: document.getElementById("stat-points"),
+      btnStart: document.getElementById("btn-start"),
+      btnNext: document.getElementById("btn-next"),
+      btnNew: document.getElementById("btn-new"),
+      btnReset: document.getElementById("btn-reset"),
+      clueText: document.getElementById("clue-text"),
+      srStatus: document.getElementById("sr-status"),
+      progress: document.getElementById("progress"),
+      lock: document.getElementById("lock"),
+      suspectsGrid: document.getElementById("suspects-grid"),
+      resultContainer: document.getElementById("result-container"),
+      badgesGrid: document.getElementById("badges-grid"),
+    };
+
     persistLoad();
     syncGrades();
     updateStats();
     updateProgress();
 
-    el.nav().forEach(btn => btn.addEventListener("click", () => showTab(btn.dataset.tab)));
-
-    el.grades().forEach(btn => btn.addEventListener("click", () => {
+    UI.navBtns.forEach(btn => btn.addEventListener("click", () => showTab(btn.dataset.tab)));
+    UI.gradeBtns.forEach(btn => btn.addEventListener("click", () => {
       state.grade = parseInt(btn.dataset.grade, 10);
       syncGrades();
       persistSave();
     }));
 
-    el.btnStart.addEventListener("click", startCase);
-    el.btnNext.addEventListener("click", nextClue);
-    el.btnNew.addEventListener("click", startCase);
-    el.btnReset.addEventListener("click", resetGame);
+    UI.btnStart.addEventListener("click", startCase);
+    UI.btnNext.addEventListener("click", nextClue);
+    UI.btnNew.addEventListener("click", startCase);
+    UI.btnReset.addEventListener("click", () => {
+      if (confirm("Opravdu smazat historii?")) {
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+      }
+    });
   });
 })();
 </script>
