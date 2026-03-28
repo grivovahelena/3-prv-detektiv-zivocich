@@ -6,7 +6,7 @@
   <title>Detektiv Živočich</title>
   <style>
     :root {
-      --bg: #f0f9ff;
+      --bg: #f8fafc;
       --ink: #1e293b;
       --ink2: #475569;
       --primary: #22c55e;
@@ -14,7 +14,7 @@
       --accent: #f59e0b;
       --paper: #fff;
       --border: #d1fae5;
-      --shadow: 0 10px 24px -8px rgba(34, 197, 94, .25);
+      --shadow: 0 10px 24px -8px rgba(34, 197, 94, .2);
       --radius: 24px;
     }
     * { box-sizing: border-box; }
@@ -44,9 +44,9 @@
     .card {
       background: var(--paper);
       border-radius: var(--radius);
-      border: 3px solid var(--border);
+      border: 2px solid var(--border);
       box-shadow: var(--shadow);
-      padding: 1.75rem;
+      padding: 1.5rem;
       margin-bottom: 1.25rem;
     }
     h1 { margin: 0 0 .75rem; font-size: 2.2rem; color: var(--primary2); font-weight: 900; }
@@ -70,8 +70,8 @@
     .btn:active { transform: translateY(1px); }
     .btn:disabled { opacity: .45; cursor: not-allowed; }
     .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 6px 0 rgba(0, 0, 0, .08); }
-    .btn-primary:hover { background: var(--primary2); }
-    .btn-ghost { background: #f8fafc; color: var(--ink2); border-color: var(--border); }
+    .btn-primary:hover:not(:disabled) { background: var(--primary2); }
+    .btn-ghost { background: #fff; color: var(--ink2); border-color: #e2e8f0; }
     .btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
     .btn-active { background: var(--primary2); color: #fff; border-color: var(--primary2); }
 
@@ -82,95 +82,95 @@
     @media (min-width: 850px) { .home-grid { grid-template-columns: 1.4fr 1fr; } }
     .rule { background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 18px; padding: 1rem; font-weight: 800; margin-bottom: 0.6rem; }
     .stats { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
-    .stat { background: #fff; border: 3px solid var(--border); border-radius: 20px; padding: .75rem; text-align: center; }
+    .stat { background: #fff; border: 2px solid var(--border); border-radius: 20px; padding: .75rem; text-align: center; }
     .stat b { display: block; font-size: 2rem; color: var(--primary2); }
 
     .case-layout { display: grid; gap: 1rem; grid-template-columns: 1fr; }
-    @media (min-width: 950px) { .case-layout { grid-template-columns: 340px 1fr; } }
+    @media (min-width: 950px) { .case-layout { grid-template-columns: 320px 1fr; } }
 
-    .clues { display: flex; flex-direction: column; gap: .6rem; }
+    .clues { display: flex; flex-direction: column; gap: .5rem; }
     .clue {
       padding: .7rem 1rem;
       border-radius: 999px;
       background: #f1f5f9;
       color: #64748b;
       font-weight: 900;
-      font-size: .92rem;
+      font-size: .9rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border: 2px solid transparent;
+      transition: .3s;
     }
-    .clue.found { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+    .clue.found { background: #dcfce7; color: #166534; transform: translateX(5px); }
     .clue .chip {
-      min-width: 44px;
+      min-width: 40px;
       text-align: center;
-      padding: .2rem .55rem;
+      padding: .2rem .5rem;
       border-radius: 999px;
-      background: rgba(255, 255, 255, .7);
-      border: 2px solid rgba(0, 0, 0, .04);
+      background: #fff;
       font-weight: 900;
-    }
-    .progress {
-      margin-top: .9rem;
-      background: #ecfeff;
-      border: 2px solid #cffafe;
-      border-radius: 16px;
-      padding: .7rem .9rem;
-      font-weight: 900;
-      color: #0f766e;
     }
 
     .display {
       margin: 1rem 0;
       background: #fff;
       border: 4px solid var(--primary);
-      border-radius: 26px;
+      border-radius: 24px;
       padding: 1.25rem;
       text-align: center;
-      box-shadow: 0 10px 0 var(--border);
+      box-shadow: 0 8px 0 var(--border);
     }
-    .display .text { font-size: 1.25rem; font-weight: 900; }
+    .display .text { font-size: 1.2rem; font-weight: 900; color: var(--ink); }
 
-    .lock {
-      background: #fef2f2;
-      color: #b91c1c;
-      border: 2px solid #fecaca;
-      border-radius: 14px;
-      padding: .6rem .8rem;
+    .lock-banner {
+      background: #fff1f2;
+      color: #be123c;
+      border: 2px dashed #fda4af;
+      border-radius: 16px;
+      padding: .8rem;
       font-weight: 900;
-      font-size: .9rem;
-      margin-bottom: .8rem;
       text-align: center;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
     }
 
-    .suspects { display: grid; gap: .85rem; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
-    .suspect {
-      position: relative;
-      text-align: center;
+    .suspects-grid { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+    .suspect-card {
       background: #fff;
       border: 3px solid #e2e8f0;
-      border-radius: 22px;
+      border-radius: 20px;
       padding: 1rem;
-      transition: .2s ease;
-      min-height: 112px;
+      cursor: pointer;
+      transition: .2s;
+      text-align: center;
       width: 100%;
     }
-    .suspect:hover:not(:disabled) { border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 12px 20px rgba(0, 0, 0, .08); }
-    .suspect:disabled { opacity: 0.72; cursor: not-allowed; }
-    .suspect .name { font-weight: 900; color: var(--primary2); font-size: 1.08rem; line-height: 1.15; text-align: center; margin: 0 auto .2rem; }
-    .suspect .group { font-weight: 900; color: var(--ink2); font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
+    .suspect-card:not(:disabled):hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+    .suspect-card:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
+    .suspect-card .name { font-weight: 900; color: var(--primary2); font-size: 1.05rem; margin-bottom: .2rem; }
+    .suspect-card .group { font-size: .75rem; font-weight: 800; color: #64748b; text-transform: uppercase; }
 
-    .result { margin-top: 1rem; border-radius: 22px; padding: 1.25rem; font-weight: 900; }
-    .ok { background: #dcfce7; border: 4px solid var(--primary); color: #166534; }
-    .bad { background: #fee2e2; border: 4px solid #ef4444; color: #991b1b; }
+    .result-box {
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      border-radius: 24px;
+      text-align: center;
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .result-box.ok { background: #dcfce7; border: 4px solid var(--primary); color: #166534; }
+    .result-box.bad { background: #fee2e2; border: 4px solid #ef4444; color: #991b1b; }
 
-    .badges { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-    .badge { background: #f1f5f9; border-radius: 22px; padding: 1rem; text-align: center; opacity: .25; border: 3px solid transparent; }
-    .badge.unlocked { opacity: 1; background: #fef9c3; border: 3px solid var(--accent); }
-    .badge .icon { font-size: 2.2rem; }
+    .badges-grid { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+    .badge { background: #f1f5f9; border-radius: 20px; padding: 1rem; text-align: center; border: 3px solid transparent; transition: .3s; }
+    .badge.unlocked { opacity: 1; background: #fef9c3; border: 3px solid var(--accent); transform: scale(1.05); }
+    .badge .icon { font-size: 2.5rem; margin-bottom: .25rem; }
 
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .pulse { animation: pulseAnim 2s infinite; }
+    @keyframes pulseAnim { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
   </style>
 </head>
 <body>
@@ -190,20 +190,20 @@
   <main>
     <section id="tab-home" class="tabs active">
       <div class="card" style="text-align:center">
-        <h1>Vítej v badatelské kanceláři!</h1>
-        <p style="font-size:1.1rem;font-weight:800;color:var(--ink2);margin:0 0 1.25rem">
-          Najdi 4 stopy a vyber správného živočicha.
+        <h1>Vítej, mladý detektive!</h1>
+        <p style="font-size:1.1rem;font-weight:800;color:var(--ink2);margin:0 0 1.5rem">
+          Dokážeš vypátrat neznámého živočicha jen podle stop?
         </p>
 
         <div class="home-grid">
           <div style="text-align:left">
-            <div class="rule">🔍 Prozkoumej nejdříve všechny 4 stopy.</div>
-            <div class="rule">✅ Potom vyber správného živočicha.</div>
-            <div class="rule">🎁 Za každou výhru dostaneš 5 bodů a odznak!</div>
+            <div class="rule">🔎 Nejdříve musíš odhalit všechny 4 stopy.</div>
+            <div class="rule">💡 Pak teprve můžeš určit, o koho jde.</div>
+            <div class="rule">🏆 Sbírej body a získej odznaky do svého atlasu!</div>
           </div>
 
           <div>
-            <div style="display:grid;gap:.5rem;margin-bottom:.9rem">
+            <div style="display:grid;gap:.5rem;margin-bottom:1rem">
               <button class="btn btn-ghost grade" data-grade="3">3. třída 🌿</button>
               <button class="btn btn-ghost grade" data-grade="4">4. třída 🌲</button>
               <button class="btn btn-ghost grade" data-grade="5">5. třída 🦁</button>
@@ -216,8 +216,8 @@
           </div>
         </div>
 
-        <button id="btn-start" class="btn btn-primary" style="margin-top:1.25rem;width:100%;max-width:520px;padding:1.1rem;font-size:1.15rem">
-          🚀 Začít pátrání
+        <button id="btn-start" class="btn btn-primary pulse" style="margin-top:1.5rem;width:100%;max-width:500px;padding:1.2rem;font-size:1.2rem">
+          🚀 Začít nové pátrání
         </button>
       </div>
     </section>
@@ -225,9 +225,8 @@
     <section id="tab-case" class="tabs">
       <div class="case-layout">
         <aside>
-          <div class="card" style="padding:1.25rem">
+          <div class="card">
             <h3>Tvoje nálezy</h3>
-
             <div class="clues">
               <div class="clue" id="clue-habitat">Prostředí <span class="chip">⏳</span></div>
               <div class="clue" id="clue-movement">Pohyb <span class="chip">⏳</span></div>
@@ -235,27 +234,26 @@
               <div class="clue" id="clue-bodyCover">Tělo <span class="chip">⏳</span></div>
             </div>
 
-            <div class="progress" id="progress">Stopy: 0 / 4</div>
-
-            <div class="display">
-              <div class="sr-only" id="sr-status"></div>
-              <div class="text" id="clue-text">Klikni na „Další stopa“.</div>
+            <div class="display" id="clue-display">
+              <div class="text" id="clue-text">Klikni na tlačítko dole pro první stopu!</div>
             </div>
 
-            <div style="display:grid;gap:.6rem">
-              <button id="btn-next" class="btn btn-primary">Další stopa 🔎</button>
-              <button id="btn-new" class="btn btn-ghost" style="display:none">Nové pátrání 🔁</button>
+            <div style="display:grid;gap:.75rem">
+              <button id="btn-next" class="btn btn-primary">Najít první stopu 🔎</button>
+              <button id="btn-new" class="btn btn-ghost" style="display:none">Další případ 🔁</button>
             </div>
-
-            <div id="result-container"></div>
+            
+            <div id="result-area"></div>
           </div>
         </aside>
 
         <section>
           <div class="card">
-            <div id="lock" class="lock">Nejdřív odhal všechny stopy (4/4).</div>
-            <h3>Kdo je náš hledaný?</h3>
-            <div id="suspects-grid" class="suspects"></div>
+            <div id="lock-banner" class="lock-banner">
+              🔒 Nejdříve odhal všechny 4 stopy.
+            </div>
+            <h3 id="suspects-title">Kdo je náš hledaný?</h3>
+            <div id="suspects-grid" class="suspects-grid"></div>
           </div>
         </section>
       </div>
@@ -264,24 +262,22 @@
     <section id="tab-badges" class="tabs">
       <div class="card">
         <h2>Tvůj Badatelský Atlas</h2>
-        <p style="margin-top:0;color:var(--ink2);font-weight:800">
-          Odznaky se odemykají podle počtu vyřešených případů.
-        </p>
-        <div id="badges-grid" class="badges"></div>
+        <p style="margin-top:0;color:var(--ink2);font-weight:800">Tady uvidíš své úspěchy.</p>
+        <div id="badges-grid" class="badges-grid"></div>
       </div>
     </section>
 
     <section id="tab-settings" class="tabs">
       <div class="card">
         <h2>Nastavení</h2>
-        <button id="btn-reset" class="btn btn-ghost" style="color:#ef4444;border-color:#fecaca">🗑️ Smazat historii</button>
+        <button id="btn-reset" class="btn btn-ghost" style="color:#ef4444;border-color:#fecaca">🗑️ Smazat historii a body</button>
       </div>
     </section>
   </main>
 
   <footer>
     <div>Mgr. Helena Gřivová</div>
-    <div style="margin-top:.25rem;opacity:.65;font-weight:600">Vzdělávací projekt pro 1. stupeň ZŠ</div>
+    <div style="margin-top:.25rem;opacity:.6;font-weight:600">Vzdělávací projekt pro 1. stupeň ZŠ</div>
   </footer>
 </div>
 
@@ -303,36 +299,16 @@
     { id: "rak", name: "Rak říční", habitat: "v potocích", movement: "leze po dně", breathing: "žábrami", bodyCover: "krunýřem", group: "korýš", grade: [4, 5] },
   ];
 
-  const clueMeta = [
+  const clueKeys = [
     { key: "habitat", prefix: "Žije" },
     { key: "movement", prefix: "Tento živočich" },
     { key: "breathing", prefix: "Dýchá" },
     { key: "bodyCover", prefix: "Tělo má kryté" },
   ];
 
-  const STORAGE_KEY = "detektiv_zivocich_v2_fixed";
-
-  const state = {
-    grade: 3,
-    points: 0,
-    solvedTotal: 0,
-    lastId: null,
-    current: null,
-    clueIndex: 0,
-    revealed: 0,
-    isOver: false,
-  };
-
+  const STORAGE_KEY = "detektiv_zivocich_v3_clean";
+  const state = { grade: 3, points: 0, solvedTotal: 0, lastId: null, current: null, revealed: 0, isOver: false };
   let UI = {};
-
-  const shuffle = (arr) => {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  };
 
   const persistLoad = () => {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -342,176 +318,142 @@
       state.grade = Number(p.grade) || 3;
       state.points = Number(p.points) || 0;
       state.solvedTotal = Number(p.solvedTotal) || 0;
-      state.lastId = p.lastId || null;
     } catch (e) {}
   };
 
   const persistSave = () => {
-    const p = { grade: state.grade, points: state.points, solvedTotal: state.solvedTotal, lastId: state.lastId };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      grade: state.grade, points: state.points, solvedTotal: state.solvedTotal, lastId: state.lastId
+    }));
   };
 
   const showTab = (id) => {
     UI.tabs.forEach(t => t.classList.remove("active"));
-    const target = document.getElementById(`tab-${id}`);
-    if (target) target.classList.add("active");
+    document.getElementById(`tab-${id}`).classList.add("active");
   };
 
-  const syncGrades = () => {
+  const syncUI = () => {
     UI.gradeBtns.forEach(btn => {
-      const g = parseInt(btn.dataset.grade, 10);
-      btn.className = (g === state.grade) ? "btn btn-active grade" : "btn btn-ghost grade";
+      btn.className = (parseInt(btn.dataset.grade) === state.grade) ? "btn btn-active grade" : "btn btn-ghost grade";
     });
-  };
-
-  const updateStats = () => {
     UI.statSolved.textContent = state.solvedTotal;
     UI.statPoints.textContent = state.points;
     renderBadges();
   };
 
-  const updateProgress = () => {
-    UI.progress.textContent = `Stopy: ${state.revealed} / 4`;
-  };
-
   const renderBadges = () => {
-    const cfg = [
+    const badges = [
       { name: "Sazenička", req: 1, icon: "🌱" },
       { name: "Pátrač", req: 3, icon: "🔦" },
       { name: "Znalec", req: 5, icon: "📗" },
       { name: "Strážce", req: 10, icon: "🌲" },
       { name: "Král hor", req: 20, icon: "🦁" },
     ];
-    UI.badgesGrid.innerHTML = "";
-    cfg.forEach(b => {
-      const div = document.createElement("div");
-      div.className = `badge ${state.solvedTotal >= b.req ? "unlocked" : ""}`;
-      div.innerHTML = `
+    UI.badgesGrid.innerHTML = badges.map(b => `
+      <div class="badge ${state.solvedTotal >= b.req ? 'unlocked' : ''}">
         <div class="icon">${b.icon}</div>
         <div style="font-weight:900">${b.name}</div>
-        <div style="font-size:.75rem;font-weight:900;opacity:.85">${b.req}× ✅</div>
-      `;
-      UI.badgesGrid.appendChild(div);
-    });
+        <div style="font-size:.7rem;font-weight:900;opacity:.7">${b.req}× ✅</div>
+      </div>
+    `).join('');
   };
 
   const startCase = () => {
     const pool = animals.filter(a => a.grade.includes(state.grade));
-    let candidates = pool.filter(a => a.id !== state.lastId);
-    if (candidates.length === 0) candidates = pool;
+    let targetPool = pool.filter(a => a.id !== state.lastId);
+    if (targetPool.length === 0) targetPool = pool;
 
-    const target = candidates[Math.floor(Math.random() * candidates.length)];
+    const target = targetPool[Math.floor(Math.random() * targetPool.length)];
     state.lastId = target.id;
 
-    const distractors = shuffle(pool.filter(a => a.id !== target.id)).slice(0, 5);
-    state.current = { target, suspects: shuffle([target, ...distractors]) };
-
-    state.clueIndex = 0;
+    const others = pool.filter(a => a.id !== target.id).sort(() => 0.5 - Math.random()).slice(0, 5);
+    state.current = { target, suspects: [target, ...others].sort(() => 0.5 - Math.random()) };
+    
     state.revealed = 0;
     state.isOver = false;
 
-    UI.resultContainer.innerHTML = "";
+    UI.resultArea.innerHTML = "";
     UI.btnNew.style.display = "none";
     UI.btnNext.style.display = "inline-flex";
     UI.btnNext.disabled = false;
-    UI.btnNext.textContent = "Další stopa 🔎";
-    UI.lock.style.display = "block";
-    UI.clueText.textContent = "Klikni na „Další stopa“.";
+    UI.btnNext.textContent = "Najít první stopu 🔎";
+    UI.lockBanner.style.display = "flex";
+    UI.clueText.textContent = "Klikni na tlačítko pro první stopu!";
     
-    clueMeta.forEach(c => {
-      const row = document.getElementById(`clue-${c.key}`);
-      if (row) {
-        row.classList.remove("found");
-        row.querySelector(".chip").textContent = "⏳";
-      }
+    clueKeys.forEach(c => {
+      const el = document.getElementById(`clue-${c.key}`);
+      el.classList.remove("found");
+      el.querySelector(".chip").textContent = "⏳";
     });
 
-    updateProgress();
     renderSuspects(true);
     showTab("case");
-    persistSave();
   };
 
-  const nextClue = () => {
-    if (!state.current || state.revealed >= 4) return;
-
-    const meta = clueMeta[state.clueIndex];
-    const val = state.current.target[meta.key];
-
-    UI.clueText.textContent = `${meta.prefix} ${val}.`;
-    UI.srStatus.textContent = `Stopa: ${meta.prefix} ${val}.`;
-
-    const row = document.getElementById(`clue-${meta.key}`);
-    if (row) {
-      row.classList.add("found");
-      row.querySelector(".chip").textContent = "✅";
-    }
-
+  const revealNextClue = () => {
+    if (state.revealed >= 4) return;
+    
+    const meta = clueKeys[state.revealed];
+    const value = state.current.target[meta.key];
+    
+    UI.clueText.textContent = `${meta.prefix} ${value}.`;
+    
+    const el = document.getElementById(`clue-${meta.key}`);
+    el.classList.add("found");
+    el.querySelector(".chip").textContent = "✅";
+    
     state.revealed++;
-    updateProgress();
 
-    if (state.revealed >= 4) {
+    if (state.revealed === 4) {
       UI.btnNext.disabled = true;
-      UI.btnNext.textContent = "Stopy odhaleny! ✓";
-      UI.lock.style.display = "none";
+      UI.btnNext.textContent = "Máš všechny stopy! ✓";
+      UI.lockBanner.style.display = "none";
       renderSuspects(false);
     } else {
-      state.clueIndex++;
+      UI.btnNext.textContent = "Hledat další stopu 🔎";
     }
   };
 
   const renderSuspects = (locked) => {
-    UI.suspectsGrid.innerHTML = "";
-    if (!state.current) return;
-
-    state.current.suspects.forEach(s => {
-      const btn = document.createElement("button");
-      btn.className = "suspect";
-      btn.disabled = locked;
-      btn.innerHTML = `
+    UI.suspectsGrid.innerHTML = state.current.suspects.map(s => `
+      <button class="suspect-card" ${locked ? 'disabled' : ''} data-id="${s.id}">
         <div class="name">${s.name}</div>
         <div class="group">${s.group}</div>
-      `;
-      if (!locked) {
-        btn.addEventListener("click", () => checkAnswer(s.id, btn));
-      }
-      UI.suspectsGrid.appendChild(btn);
-    });
+      </button>
+    `).join('');
+
+    if (!locked) {
+      UI.suspectsGrid.querySelectorAll(".suspect-card").forEach(btn => {
+        btn.addEventListener("click", () => checkAnswer(btn.dataset.id, btn));
+      });
+    }
   };
 
-  const checkAnswer = (id, btnEl) => {
-    if (!state.current || state.isOver) return;
+  const checkAnswer = (id, btn) => {
+    if (state.isOver) return;
     state.isOver = true;
 
-    Array.from(UI.suspectsGrid.children).forEach(node => node.style.opacity = "0.4");
-    btnEl.style.opacity = "1";
-
     const ok = (id === state.current.target.id);
+    UI.suspectsGrid.querySelectorAll(".suspect-card").forEach(b => b.style.opacity = "0.3");
+    btn.style.opacity = "1";
+    btn.style.borderColor = ok ? "var(--primary)" : "#ef4444";
+
     UI.btnNext.style.display = "none";
     UI.btnNew.style.display = "inline-flex";
 
     if (ok) {
       state.points += 5;
-      state.solvedTotal += 1;
-      updateStats();
+      state.solvedTotal++;
       persistSave();
+      syncUI();
     }
 
-    const box = document.createElement("div");
-    box.className = `result ${ok ? "ok" : "bad"}`;
-    if (ok) {
-      box.innerHTML = `
-        <div style="font-size:1.35rem;font-weight:900">🌟 SUPER! 🌟</div>
-        <p style="margin:.5rem 0 0">Máme ho! Je to <b>${state.current.target.name}</b>.</p>
-        <div style="margin-top:.6rem;font-size:.9rem">🐾 ${state.current.target.group} • 📍 ${state.current.target.habitat}</div>
-      `;
-    } else {
-      box.innerHTML = `
-        <div style="font-weight:900">Skoro…</div>
-        <p style="margin:.5rem 0 0">Hledali jsme <b>${state.current.target.name}</b>.</p>
-      `;
-    }
-    UI.resultContainer.appendChild(box);
+    UI.resultArea.innerHTML = `
+      <div class="result-box ${ok ? 'ok' : 'bad'}">
+        <div style="font-size:1.4rem;margin-bottom:.5rem">${ok ? '🌟 SKVĚLÁ PRÁCE! 🌟' : 'SKORO...'}</div>
+        <div>Hledaným živočichem byl <b>${state.current.target.name}</b>.</div>
+      </div>
+    `;
   };
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -526,28 +468,24 @@
       btnNew: document.getElementById("btn-new"),
       btnReset: document.getElementById("btn-reset"),
       clueText: document.getElementById("clue-text"),
-      srStatus: document.getElementById("sr-status"),
-      progress: document.getElementById("progress"),
-      lock: document.getElementById("lock"),
+      lockBanner: document.getElementById("lock-banner"),
       suspectsGrid: document.getElementById("suspects-grid"),
-      resultContainer: document.getElementById("result-container"),
+      resultArea: document.getElementById("result-area"),
       badgesGrid: document.getElementById("badges-grid"),
     };
 
     persistLoad();
-    syncGrades();
-    updateStats();
-    updateProgress();
+    syncUI();
 
-    UI.navBtns.forEach(btn => btn.addEventListener("click", () => showTab(btn.dataset.tab)));
-    UI.gradeBtns.forEach(btn => btn.addEventListener("click", () => {
-      state.grade = parseInt(btn.dataset.grade, 10);
-      syncGrades();
+    UI.navBtns.forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
+    UI.gradeBtns.forEach(b => b.addEventListener("click", () => {
+      state.grade = parseInt(b.dataset.grade);
+      syncUI();
       persistSave();
     }));
 
     UI.btnStart.addEventListener("click", startCase);
-    UI.btnNext.addEventListener("click", nextClue);
+    UI.btnNext.addEventListener("click", revealNextClue);
     UI.btnNew.addEventListener("click", startCase);
     UI.btnReset.addEventListener("click", () => {
       if (confirm("Opravdu smazat historii?")) {
